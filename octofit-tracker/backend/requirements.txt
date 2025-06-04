@@ -1,8 +1,8 @@
 # Requirements for OctoFit Tracker backend
 
-django
-djangorestframework
-django-cors-headers
-pymongo
-dnspython
-python-dotenv
+django>=3.2
+djangorestframework>=3.12
+django-cors-headers>=3.7
+pymongo>=3.11
+dnspython>=2.1
+python-dotenv>=0.15
