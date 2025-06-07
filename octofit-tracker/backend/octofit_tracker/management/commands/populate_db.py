@@ -3,7 +3,7 @@ import pymongo
 from django.conf import settings
 
 class Command(BaseCommand):
-    help = 'Populate octofit_db with test data.'
+    help = 'Populate octofit_db with test data for.'
 
     def handle(self, *args, **kwargs):
         client = pymongo.MongoClient(settings.MONGO_URI)
