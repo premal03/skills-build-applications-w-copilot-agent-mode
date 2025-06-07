@@ -1,28 +1,27 @@
-# Test data for OctoFit Tracker (based on monafit tracker example)
+# Standalone script to populate octofit_db with test data
+import pymongo
+from test_data import test_users, test_teams, test_activities, test_leaderboard, test_workouts
 
-test_users = [
-    {"email": "alice@example.com", "name": "Alice", "password": "pass1", "team_id": "team1", "points": 120},
-    {"email": "bob@example.com", "name": "Bob", "password": "pass2", "team_id": "team1", "points": 95},
-    {"email": "carol@example.com", "name": "Carol", "password": "pass3", "team_id": "team2", "points": 110}
-]
+MONGO_URI = "mongodb://localhost:27017/"
+MONGO_DB_NAME = "octofit_db"
 
-test_teams = [
-    {"name": "Team 1", "members": ["alice@example.com", "bob@example.com"]},
-    {"name": "Team 2", "members": ["carol@example.com"]}
-]
+client = pymongo.MongoClient(MONGO_URI)
+db = client[MONGO_DB_NAME]
 
-test_activities = [
-    {"user_id": "alice@example.com", "activity_type": "running", "duration": 30, "date": "2025-06-01", "points": 30},
-    {"user_id": "bob@example.com", "activity_type": "walking", "duration": 60, "date": "2025-06-01", "points": 20},
-    {"user_id": "carol@example.com", "activity_type": "cycling", "duration": 45, "date": "2025-06-01", "points": 25}
-]
+# Clear existing data
+print("Clearing existing data...")
+db.users.delete_many({})
+db.teams.delete_many({})
+db.activity.delete_many({})
+db.leaderboard.delete_many({})
+db.workouts.delete_many({})
 
-test_leaderboard = [
-    {"team_id": "Team 1", "total_points": 215},
-    {"team_id": "Team 2", "total_points": 110}
-]
+# Insert test data
+print("Inserting test data...")
+db.users.insert_many(test_users)
+db.teams.insert_many(test_teams)
+db.activity.insert_many(test_activities)
+db.leaderboard.insert_many(test_leaderboard)
+db.workouts.insert_many(test_workouts)
 
-test_workouts = [
-    {"name": "Morning Run", "description": "Run 5km in the morning", "suggested_by": "Coach Paul", "difficulty": "Medium"},
-    {"name": "Pushup Challenge", "description": "50 pushups in one go", "suggested_by": "Coach Paul", "difficulty": "Hard"}
-]
+print("Test data populated successfully.")
