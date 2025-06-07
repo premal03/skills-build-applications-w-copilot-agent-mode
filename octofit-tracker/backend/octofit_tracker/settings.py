@@ -73,17 +73,12 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 
 
 
-# MongoDB connection settings
-import os
-from dotenv import load_dotenv
-load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
-MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "octofit_db")
-
+# Database engine set to Django's default SQLite for compatibility with Django management commands
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.dummy"
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
