@@ -15,32 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
 from django.contrib import admin
 from django.urls import path
-from octofit_tracker import views
-from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-
-@api_view(["GET"])
-def api_root(request, format=None):
-    return Response({
-        "users": request.build_absolute_uri("/users/"),
-        "teams": request.build_absolute_uri("/teams/"),
-        "activity": request.build_absolute_uri("/activity/"),
-        "leaderboard": request.build_absolute_uri("/leaderboard/"),
-        "workouts": request.build_absolute_uri("/workouts/")
-    })
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", api_root, name="api-root"),
-    path("users/", views.UserList.as_view(), name="user-list"),
-    path("teams/", views.TeamList.as_view(), name="team-list"),
-    path("activity/", views.ActivityList.as_view(), name="activity-list"),
-    path("leaderboard/", views.LeaderboardList.as_view(), name="leaderboard-list"),
-    path("workouts/", views.WorkoutList.as_view(), name="workout-list"),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
