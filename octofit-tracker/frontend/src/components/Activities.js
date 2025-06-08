@@ -4,7 +4,7 @@ function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch('https://laughing-umbrella-rq767w6p9wpcx66r.github.dev/ub.dev/-8000.app.github.dev/api/activity')
+    fetch('https://laughing-umbrella-rq767w6p9wpcx66r.github.dev/ub.dev/-8000.app.github.dev/api/activities')
       .then(response => response.json())
       .then(data => setActivities(data));
   }, []);
